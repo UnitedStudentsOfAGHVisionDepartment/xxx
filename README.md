@@ -1,2 +1,3 @@
 # xxx
-none
+non
+A moze by coś tak editnąć?
