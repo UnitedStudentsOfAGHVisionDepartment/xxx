@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/Icons">
+        <file>Resources/log-in.png</file>
+        <file>Resources/failed.png</file>
+        <file>Resources/logging.png</file>
+    </qresource>
+</RCC>
