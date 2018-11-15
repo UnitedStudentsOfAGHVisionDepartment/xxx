@@ -18,8 +18,7 @@ newDialog::newDialog(QWidget *parent) :
     isLoged=false;
 
     logindb=QSqlDatabase::addDatabase("QSQLITE");
-    logindb.setDatabaseName(/*QDir::currentPath() +*/"C:/Users/Arkadiusz/Desktop/Pracka/Wersja Jarka/nienazwany2/Resources/mydb.db");
-    qDebug()<<"Baza danych nie działa: "+QDir::currentPath() +"/Resources/mydb.db";
+    logindb.setDatabaseName(QDir::currentPath() +"/Resources/mydb.db");
     if(logindb.open())
         ui->label_3->setText(tr("Db has been opened succesfully"));
     else
@@ -44,6 +43,7 @@ void newDialog::on_pushButtonLog_clicked()
     if(!logindb.isOpen())
     {
         qDebug()<<"Failed to open the database";
+        this->logging_window_closed();
         return;
     }
     QSqlQuery qry;

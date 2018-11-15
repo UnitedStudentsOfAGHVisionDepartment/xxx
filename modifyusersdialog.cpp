@@ -7,7 +7,6 @@ ModifyUsersDialog::ModifyUsersDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     qDebug()<<"Wywolanie konstruktora modify user dialog";
-
 }
 
 ModifyUsersDialog::~ModifyUsersDialog()
@@ -22,20 +21,12 @@ void ModifyUsersDialog::showEvent(QShowEvent *event)
 {
     QWidget::showEvent(event);
     logindb=QSqlDatabase::addDatabase("QSQLITE");
-    logindb.setDatabaseName("C:/Users/Arkadiusz/Desktop/Pracka/Wersja Jarka/nienazwany2/Resources/mydb.db");
+    logindb.setDatabaseName(QDir::currentPath() +"/Resources/mydb.db");
 
     if(logindb.open())
-    {
-        QSqlQueryModel *model =new QSqlQueryModel();
-        QSqlQuery q("select *  from workers");
-        q.exec();
-        model->setQuery(q);
-        ui->tableView->setModel(model);
-    }
+        Update_Teable_View();
     else
-    {
        qDebug()<<"Baza danych nie działa";
-    }
 }
 
 void ModifyUsersDialog::delay(int sec)
@@ -47,7 +38,7 @@ void ModifyUsersDialog::delay(int sec)
 
 void ModifyUsersDialog::on_tableView_activated(const QModelIndex &index)
 {
-    QModelIndex newIndex=index.sibling(index.row(),0);
+   QModelIndex newIndex=index.sibling(index.row(),0);
    QString val=ui->tableView->model()->data(newIndex).toString();
    if(!logindb.open())
    {
@@ -74,18 +65,45 @@ void ModifyUsersDialog::on_tableView_activated(const QModelIndex &index)
 
 void ModifyUsersDialog::on_pushButton_Add_clicked()
 {
-     QSqlQuery qry("insert into workers(surname,name,permission,username,password,id) values()");
+    if(!logindb.open())
+    {
+        qDebug()<<"Baza danych nie została otwarta";
+        return;
+    }
+    QSqlQuery checkId("SELECT * FROM workers");
+
+    checkId.exec();
+
+    if(checkId.size()==-1)
+    {
+        qDebug()<<"Juz jest taki ID "+ QString::number(checkId.size());
+        return;
+    }
+
+    QSqlQuery checklogin("select * from workers where username='"+ui->lineEdit_Login->text()+"'");
+    //record = checklogin.record();
+    if(checklogin.size()!=-1)
+    {
+        qDebug()<<"Juz jest taki login"+ QString::number(checklogin.size());
+        return;
+    }
+     QSqlQuery qry("insert into workers(surname,name,permission,username,password,id)"
+                   " values('"+ui->lineEdit_Surname->text()+"','"+ui->lineEdit_Name->text()+"','"+ui->lineEdit_Permission->text()+"','"+
+                   ui->lineEdit_Login->text()+"','"+ui->lineEdit_Password->text()+"','"+ui->lineEdit_Id->text()+"')");
+     //Update_Teable_View();
 
 }
 
 void ModifyUsersDialog::on_pushButton_Update_clicked()
 {
      QSqlQuery qry("update workers set  where id=");
+     Update_Teable_View();
 }
 
 void ModifyUsersDialog::on_pushButton_Delete_clicked()
 {
      QSqlQuery qry("delete from workers where id="+ui->lineEdit_Id->text());
+     Update_Teable_View();
 }
 
 void ModifyUsersDialog::Update_Teable_View()
