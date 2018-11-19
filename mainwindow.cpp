@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->label_2->setText(currentUser);
+    this->hide();
     open_Logging_window();
 }
 
@@ -31,7 +32,6 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    //to prawdopodobnie lepiej przenieść wyżej do kostruktora klasy
     open_Logging_window();
 }
 

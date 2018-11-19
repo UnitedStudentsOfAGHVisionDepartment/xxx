@@ -8,6 +8,7 @@
 #include <QtDebug>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QInputEvent>
 //#include "mainwindow.h"
 
 namespace Ui {
@@ -25,6 +26,7 @@ public:
 
 private slots:
     void on_pushButtonLog_clicked();
+    void keyPressEvent(QKeyEvent *e);
 signals:
     void update_label(QString name);
     void logging_window_closed();

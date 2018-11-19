@@ -23,13 +23,13 @@
     </rect>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>260</x>
      <y>10</y>
      <width>241</width>
-     <height>187</height>
+     <height>213</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -93,7 +93,18 @@
          <widget class="QLineEdit" name="lineEdit_Surname"/>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_Permission"/>
+         <widget class="QComboBox" name="comboBox">
+          <item>
+           <property name="text">
+            <string>worker</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>admin</string>
+           </property>
+          </item>
+         </widget>
         </item>
         <item>
          <widget class="QLineEdit" name="lineEdit_Login"/>
@@ -131,6 +142,16 @@
      </layout>
     </item>
    </layout>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_Permission">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>240</y>
+     <width>168</width>
+     <height>20</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

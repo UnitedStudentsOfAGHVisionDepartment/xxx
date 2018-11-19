@@ -108,3 +108,8 @@ void newDialog::delay(int sec)
        while (QTime::currentTime() < dieTime)
            QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
+void newDialog::keyPressEvent(QKeyEvent *e) {
+    if(e->key() != Qt::Key_Escape)
+        QDialog::keyPressEvent(e);
+    else {/* minimize */}
+}

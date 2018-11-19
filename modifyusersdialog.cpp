@@ -6,6 +6,7 @@ ModifyUsersDialog::ModifyUsersDialog(QWidget *parent) :
     ui(new Ui::ModifyUsersDialog)
 {
     ui->setupUi(this);
+    ui->lineEdit_Id->setValidator(new QIntValidator(0,30000,this));
     qDebug()<<"Wywolanie konstruktora modify user dialog";
 }
 
@@ -48,7 +49,7 @@ void ModifyUsersDialog::on_tableView_activated(const QModelIndex &index)
    qDebug()<<val<<'\n'<<index.row();
    QSqlQuery qry("select * from workers where id="+val);
    QSqlRecord record = qry.record();
-   int surnameCol = record.indexOf("surname"); // index of the field "name"
+   int surnameCol = record.indexOf("surname");
    int firstnameCol= record.indexOf("name");
    int permissionCol= record.indexOf("permission");
    int usernameCol= record.indexOf("username");
@@ -70,33 +71,50 @@ void ModifyUsersDialog::on_pushButton_Add_clicked()
         qDebug()<<"Baza danych nie została otwarta";
         return;
     }
-    QSqlQuery checkId("SELECT * FROM workers");
+  QSqlQuery checkId("SELECT * FROM workers WHERE id='"+ui->lineEdit_Id->text()+"'");
+  QSqlQueryModel *modelId =new QSqlQueryModel();
 
-    checkId.exec();
+  checkId.exec();
+  checkId.next();
+  modelId->setQuery(checkId);
+  if(modelId->rowCount()!=0)
+  {
+      qDebug()<<"Juz jest taki ID ";
+      return;
+  }
 
-    if(checkId.size()==-1)
+    QSqlQuery checkLogin("select id from workers where username='"+ui->lineEdit_Login->text()+"'");
+    QSqlQueryModel *modelLogin =new QSqlQueryModel();
+
+    checkLogin.exec();
+    checkLogin.next();
+    modelLogin->setQuery(checkLogin);
+
+    if( modelLogin->rowCount()!=0)
     {
-        qDebug()<<"Juz jest taki ID "+ QString::number(checkId.size());
+        qDebug()<<"Juz jest taki login";
+
         return;
     }
-
-    QSqlQuery checklogin("select * from workers where username='"+ui->lineEdit_Login->text()+"'");
-    //record = checklogin.record();
-    if(checklogin.size()!=-1)
-    {
-        qDebug()<<"Juz jest taki login"+ QString::number(checklogin.size());
-        return;
-    }
+    qDebug()<<"Dodano";
      QSqlQuery qry("insert into workers(surname,name,permission,username,password,id)"
                    " values('"+ui->lineEdit_Surname->text()+"','"+ui->lineEdit_Name->text()+"','"+ui->lineEdit_Permission->text()+"','"+
                    ui->lineEdit_Login->text()+"','"+ui->lineEdit_Password->text()+"','"+ui->lineEdit_Id->text()+"')");
-     //Update_Teable_View();
+     Update_Teable_View();
 
 }
 
 void ModifyUsersDialog::on_pushButton_Update_clicked()
 {
-     QSqlQuery qry("update workers set  where id=");
+     QSqlQuery qry;
+     qry.prepare("update workers set surname= :surname, name= :name, permission= :permission, username= :username, password= :password  where id=:id");
+     qry.bindValue(":id",ui->lineEdit_Id->text());
+     qry.bindValue(":name",ui->lineEdit_Name->text());
+     qry.bindValue(":surname",ui->lineEdit_Surname->text());
+     qry.bindValue(":username",ui->lineEdit_Login->text());
+     qry.bindValue(":password",ui->lineEdit_Password->text());
+     qry.bindValue(":permission",ui->lineEdit_Permission->text());
+     qry.exec();
      Update_Teable_View();
 }
 
@@ -109,8 +127,12 @@ void ModifyUsersDialog::on_pushButton_Delete_clicked()
 void ModifyUsersDialog::Update_Teable_View()
 {
     QSqlQueryModel *model =new QSqlQueryModel();
-    QSqlQuery q("select *  from workers");
+    QSqlQuery q("select *  from workers order by id");
     q.exec();
     model->setQuery(q);
-    ui->tableView->setModel(model);
+    QSortFilterProxyModel *m=new QSortFilterProxyModel(this);
+    m->setSourceModel(model);
+    m->sort(0);
+    ui->tableView->setModel(m);
+    ui->tableView->setSortingEnabled(true);
 }
