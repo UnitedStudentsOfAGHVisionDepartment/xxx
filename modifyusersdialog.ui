@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>511</width>
-    <height>300</height>
+    <width>690</width>
+    <height>297</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <rect>
      <x>9</x>
      <y>9</y>
-     <width>248</width>
+     <width>421</width>
      <height>282</height>
     </rect>
    </property>
@@ -26,7 +26,7 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>440</x>
      <y>10</y>
      <width>241</width>
      <height>213</height>
@@ -93,7 +93,7 @@
          <widget class="QLineEdit" name="lineEdit_Surname"/>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox">
+         <widget class="QComboBox" name="comboBox_Perm">
           <item>
            <property name="text">
             <string>worker</string>
@@ -142,16 +142,6 @@
      </layout>
     </item>
    </layout>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_Permission">
-   <property name="geometry">
-    <rect>
-     <x>320</x>
-     <y>240</y>
-     <width>168</width>
-     <height>20</height>
-    </rect>
-   </property>
   </widget>
  </widget>
  <resources/>

@@ -60,7 +60,7 @@ void ModifyUsersDialog::on_tableView_activated(const QModelIndex &index)
    ui->lineEdit_Login->setText(qry.value(usernameCol).toString());
    ui->lineEdit_Name->setText(qry.value(firstnameCol).toString());
    ui->lineEdit_Password->setText(qry.value(passwordCol).toString());
-   ui->lineEdit_Permission->setText(qry.value(permissionCol).toString());
+   ui->comboBox_Perm->setCurrentText(qry.value(permissionCol).toString());
    ui->lineEdit_Surname->setText(qry.value(surnameCol).toString());
 }
 
@@ -98,9 +98,10 @@ void ModifyUsersDialog::on_pushButton_Add_clicked()
     }
     qDebug()<<"Dodano";
      QSqlQuery qry("insert into workers(surname,name,permission,username,password,id)"
-                   " values('"+ui->lineEdit_Surname->text()+"','"+ui->lineEdit_Name->text()+"','"+ui->lineEdit_Permission->text()+"','"+
+                   " values('"+ui->lineEdit_Surname->text()+"','"+ui->lineEdit_Name->text()+"','"+ui->comboBox_Perm->currentText()+"','"+
                    ui->lineEdit_Login->text()+"','"+ui->lineEdit_Password->text()+"','"+ui->lineEdit_Id->text()+"')");
      Update_Teable_View();
+    qDebug()<<ui->comboBox_Perm->currentText();
 
 }
 
@@ -113,9 +114,10 @@ void ModifyUsersDialog::on_pushButton_Update_clicked()
      qry.bindValue(":surname",ui->lineEdit_Surname->text());
      qry.bindValue(":username",ui->lineEdit_Login->text());
      qry.bindValue(":password",ui->lineEdit_Password->text());
-     qry.bindValue(":permission",ui->lineEdit_Permission->text());
+     qry.bindValue(":permission",ui->comboBox_Perm->currentText());
      qry.exec();
      Update_Teable_View();
+     qDebug()<<ui->comboBox_Perm->currentText();
 }
 
 void ModifyUsersDialog::on_pushButton_Delete_clicked()
@@ -135,4 +137,6 @@ void ModifyUsersDialog::Update_Teable_View()
     m->sort(0);
     ui->tableView->setModel(m);
     ui->tableView->setSortingEnabled(true);
+    ui->tableView->resizeColumnToContents(0);
+    ui->tableView->resizeColumnToContents(5);
 }
