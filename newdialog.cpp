@@ -9,6 +9,8 @@ newDialog::newDialog(QWidget *parent) :
     ui(new Ui::newDialog)
 {
     ui->setupUi(this);
+    bar = new QStatusBar(this);
+    ui->verticalLayout_3->addWidget(bar);
     qDebug()<<"Wywolanie konstruktora newdialog";
     this->setWindowFlag(Qt::WindowStaysOnTopHint);
     this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint );
@@ -20,7 +22,8 @@ newDialog::newDialog(QWidget *parent) :
     logindb=QSqlDatabase::addDatabase("QSQLITE");
     logindb.setDatabaseName(QDir::currentPath() +"/Resources/mydb.db");
     if(logindb.open())
-        ui->label_3->setText(tr("Db has been opened succesfully"));
+        //ui->label_3->setText(tr("Db has been opened succesfully"));
+        bar->showMessage(tr("Db has been opened succesfully"));
     else
     {
         ui->label_3->setText(tr("Failed to open db"));
@@ -58,7 +61,8 @@ void newDialog::on_pushButtonLog_clicked()
         if(count==1)
         {
 
-            ui->label_3->setText(tr("login and password is correct"));
+            //ui->label_3->setText(tr("login and password is correct"));
+            bar->showMessage(tr("login and password is correct"));
             QSqlQuery q("select *  from workers where username='"+login+"' and password='"+password+"'");
             QSqlRecord record = q.record();
             //ui->label_3->setText(QString::number(record.count()));
@@ -84,7 +88,8 @@ void newDialog::on_pushButtonLog_clicked()
             ui->label_3->setText(tr("Duplicate login and password is correct"));
         if(count<1)
         {
-            ui->label_3->setText(tr("login and password is not correct"));
+            bar->showMessage(tr("login and password is not correct"));
+            //ui->label_3->setText(tr("login and password is not correct"));
             QMessageBox msgBox;
             if(false)
             {

@@ -13,8 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->label_2->setText(currentUser);
-    this->hide();
-    open_Logging_window();
+    //this->hide();
 }
 
 MainWindow::~MainWindow()
@@ -49,7 +48,10 @@ void MainWindow::on_pushButton_3_clicked()
 //obsługa syganłu
 void MainWindow::update_label(QString name)
 {
-    ui->label_2->setText(name);
+    //ui->label_2->setText(name);
+    ui->label_2->hide();
+    ui->label->hide();
+    ui->statusBar->showMessage("Zalogowany jako: "+name);
     if(isAdmin)
     {
         ui->actionmodify_users->setVisible(true);
@@ -70,6 +72,7 @@ void MainWindow::logging_window_closed()
 {
     close();
 }
+
 void MainWindow::open_Logging_window()
 {
     newDialog window;
@@ -77,4 +80,15 @@ void MainWindow::open_Logging_window()
     QObject::connect(&window,SIGNAL(update_label(QString)),this,SLOT(update_label(QString)));
     QObject::connect(&window,SIGNAL(logging_window_closed()),this,SLOT(logging_window_closed()));
     window.exec();
+}
+void MainWindow::showEvent( QShowEvent* event)
+{
+    QWidget::showEvent(event);
+    open_Logging_window();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *e) {
+    if(e->key() != Qt::Key_Escape)
+        QMainWindow::keyPressEvent(e);
+    else {close();}
 }

@@ -9,6 +9,8 @@
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QInputEvent>
+#include <QMainWindow>
+#include <QtWidgets>
 //#include "mainwindow.h"
 
 namespace Ui {
@@ -35,6 +37,7 @@ private:
     QSqlDatabase logindb;
     void delay(int sec);
     bool isLoged=false;
+    QStatusBar *bar = new QStatusBar(this);
 };
 
 #endif // NEWDIALOG_H

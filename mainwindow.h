@@ -32,6 +32,10 @@ private slots:
 
     void on_actionmodify_users_triggered();
 
+    void showEvent( QShowEvent* event);
+
+    void keyPressEvent(QKeyEvent *e);
+
 private:
     Ui::MainWindow *ui;
     //ModifyUsersDialog modifyUsers;

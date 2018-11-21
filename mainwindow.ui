@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>979</width>
-    <height>561</height>
+    <width>1200</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="obraz" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>60</y>
-      <width>771</width>
-      <height>371</height>
+      <x>0</x>
+      <y>-190</y>
+      <width>800</width>
+      <height>600</height>
      </rect>
     </property>
     <property name="maximumSize">
@@ -33,8 +33,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>20</y>
+      <x>850</x>
+      <y>220</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -43,40 +43,11 @@
      <string>PushButton</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>830</x>
-      <y>20</y>
-      <width>131</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Aktualnie zalogowany jako</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>836</x>
-      <y>40</y>
-      <width>121</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>20</y>
+      <x>1120</x>
+      <y>50</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -88,8 +59,8 @@
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>20</y>
+      <x>890</x>
+      <y>130</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -98,13 +69,42 @@
      <string>PushButton</string>
     </property>
    </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>970</x>
+      <y>10</y>
+      <width>129</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Aktualnie zalogowany jako</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>979</width>
+     <width>1200</width>
      <height>21</height>
     </rect>
    </property>
